@@ -1,14 +1,14 @@
 package org.example;
 
 public class Card {
-    enum Suit {
+    public static enum Suit {
         HEART,
         CLUB,
         SPADE,
         DIAMOND
     }
 
-    enum Rank {
+    public static enum Rank {
         TWO,
         THREE,
         FOUR,
@@ -24,8 +24,8 @@ public class Card {
         ACE
     }
 
-    public Suit suit;
-    public Rank rank;
+    private final Suit suit;
+    private final Rank rank;
 
     public Card(Suit suit, Rank rank) {
         this.suit = suit;

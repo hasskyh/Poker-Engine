@@ -1,14 +1,15 @@
 package org.example;
 import java.util.LinkedList;
-import org.example.Card;
+import java.util.Collections;
 import org.example.Card.Suit;
 import org.example.Card.Rank;
 
 public class Deck {
-    public LinkedList<Card> deck;
+    private static Deck instance;
+    private final LinkedList<Card> deck;
     public int cardInDeck;
 
-    public Deck() {
+    private Deck() {
         this.deck = new LinkedList<>();
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
@@ -16,5 +17,23 @@ public class Deck {
                 cardInDeck++;
             }
         }
+
+        shuffle();
+    }
+
+    //Use this to ensure only one version of the deck is going around at any one time.
+    public static Deck getInstance() {
+        if (instance == null) {
+            instance = new Deck();
+        }
+        return instance;
+    }
+
+    public void shuffle() {
+        Collections.shuffle(deck);
+    }
+
+    public Card drawCard() {
+        return deck.pop();
     }
 }
