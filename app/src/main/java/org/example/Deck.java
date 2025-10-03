@@ -5,8 +5,8 @@ import org.example.Card.Suit;
 import org.example.Card.Rank;
 
 public class Deck {
-    LinkedList<Card> deck;
-    int cardInDeck;
+    public LinkedList<Card> deck;
+    public int cardInDeck;
 
     public Deck() {
         this.deck = new LinkedList<>();

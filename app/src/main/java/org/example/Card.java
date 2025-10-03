@@ -24,8 +24,8 @@ public class Card {
         ACE
     }
 
-    Suit suit;
-    Rank rank;
+    public Suit suit;
+    public Rank rank;
 
     public Card(Suit suit, Rank rank) {
         this.suit = suit;
