@@ -42,6 +42,20 @@ class AppTest {
         Deck.burnDeck();
     }
 
+    @Test void deckDealsWithBeingEmptyCorrectly() {
+        Deck deck = Deck.getInstance();
+        for (int i = 0; i < 52; i++) {
+            deck.drawCard();
+        }
+
+        assertEquals(0, deck.cardsInDeck);
+
+        deck.drawCard();
+
+        assertEquals(0, deck.cardsInDeck); //With no cards still in the deck, it shouldn't reduce the count below 0
+        Deck.burnDeck();
+    }
+
     @Test void deckShufflesWell() {
         Deck deck = Deck.getInstance();
         Card card1 = deck.drawCard();
