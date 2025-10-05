@@ -5,10 +5,91 @@ package org.example;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.example.Card.Rank.*;
+import org.example.Card.Suit.*;
+import java.util.Arrays;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test void cardHasCorrectRank() {
+        Card classUnderTest = new Card(Card.Suit.HEART, Card.Rank.THREE);
+        assertTrue(classUnderTest.getRank() == Card.Rank.THREE, "Card has the wrong rank");
+    }
+
+    @Test void cardHasCorrectSuit() {
+        Card classUnderTest = new Card(Card.Suit.HEART, Card.Rank.THREE);
+        assertTrue(classUnderTest.getSuit() == Card.Suit.HEART, "Card has the wrong suit");
+    }
+
+    @Test void deckCountsCorrectly() {
+        assertEquals(Deck.getInstance().cardsInDeck, 52);
+    }
+
+    @Test void deckUpdatesCountCorrectly() {
+        Deck deck = Deck.getInstance();
+        Card card = deck.drawCard();
+        assertEquals(Deck.getInstance().cardsInDeck, 51);
+        deck.replaceCard(card);
+        assertEquals(Deck.getInstance().cardsInDeck, 52);
+        Deck.burnDeck();
+    }
+
+    @Test void deckDealsCardsCorrectly() {
+        Deck deck = Deck.getInstance();
+        Card card = deck.drawCard();
+        for(int i = 0; i < 55; i++) {
+            assertNotEquals(card, deck.drawCard(), "Deck dealt the same card twice");
+        }
+        Deck.burnDeck();
+    }
+
+    @Test void deckShufflesWell() {
+        Deck deck = Deck.getInstance();
+        Card card1 = deck.drawCard();
+        deck.replaceCard(card1);
+        deck.shuffle();
+        Card card2 = deck.drawCard();
+        assertNotEquals(card1, card2, "Unlikely but possible, card did not get shuffled correctly");
+        Deck.burnDeck();
+    }
+
+    @Test void deckPlacesCardsBack() {
+        Deck deck = Deck.getInstance();
+        Card card = deck.drawCard();
+        deck.replaceCard(card);
+        deck.shuffle();
+        Card testCard = deck.drawCard();
+
+        while (card != testCard) {
+            testCard = deck.drawCard();
+            if (testCard == null) {
+                assertEquals(true, false); //Fail if the card is not found
+            }
+        }
+
+        assertEquals(true, true); //Pass if the card is found
+        Deck.burnDeck();
+    }
+
+    @Test void playerHasTheRightDefaultValues() {
+        Player classUnderTest = new Player();
+        assertTrue(classUnderTest.getChipValue() == 0, "Player shouldn't have any chips");
+        assertTrue(Arrays.equals(classUnderTest.getHand(), new Card[2]), "Player shouldn't have any cards");
+    }
+
+    @Test void playerHasTheRightCards() {
+        Player classUnderTest = new Player();
+        Deck deck = Deck.getInstance();
+        Card[] testHand = new Card[2];
+
+        Card one = deck.drawCard();
+        Card two = deck.drawCard();
+        testHand[0] = one;
+        testHand[1] = two;
+
+        classUnderTest.setHand(testHand);
+
+        Card[] hand = classUnderTest.getHand();
+        assertEquals(testHand, hand, "Hands are not equal");
+        Deck.burnDeck();
     }
 }
