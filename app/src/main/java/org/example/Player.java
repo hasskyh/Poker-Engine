@@ -1,8 +1,8 @@
 package org.example;
 
 public class Player {
-    private Card[] hand = new Card[2];
-    private int chipValue;
+    private Card[] hand = new Card[2]; //The hand the player has
+    private int chipValue; //The amount of chips the player has
 
     public Player() {
         this.chipValue = 0;
@@ -20,8 +20,9 @@ public class Player {
         return chipValue;
     }
 
-    public void setHand(Card[] newHand) {
-        this.hand = newHand;
+    public void setHand(Card card1, Card card2) {
+        this.hand = new Card[]{card1, card2};
     }
+
 }
 
