@@ -11,7 +11,7 @@ public class Game {
     static int currentPlayer = 0;                           //Index which is used to track who's turn it is
     static int inPlayers = players.size();                  //Used to track how many players are not folded so we can end the round early if they are all gone
     static int ante;                                        //The amount someone needs to put in at minimum when they check
-    static final int maxPlayerSize = 23;                          //The maximum amount of players we're able to play with
+    static final int maxPlayerSize = 23;                    //The maximum amount of players we're able to play with
 
     //Used for player decisions during play()
     enum playerAction {
